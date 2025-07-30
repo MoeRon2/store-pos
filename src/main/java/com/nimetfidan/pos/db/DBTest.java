@@ -1,4 +1,4 @@
-package com.nimetfidan.pos;
+package com.nimetfidan.pos.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

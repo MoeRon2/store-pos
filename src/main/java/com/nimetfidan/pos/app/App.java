@@ -1,4 +1,4 @@
-package com.nimetfidan.pos;
+package com.nimetfidan.pos.app;
 
 /**
  * Hello world!
