@@ -40,8 +40,9 @@ public class App
 //    cart.clearCart();  // Clear the cart
 //    cart.printCart();  // Prints empty cart
 //    System.out.println("Total Price: " + cart.getTotalPrice());
-    	
-      System.out.println(ProductDAO.getItem("1"));
+    
+      ProductDAO.increaseStock("1");
+      System.out.println(ProductDAO.getItemFromDB("1"));
     }
     
 }
