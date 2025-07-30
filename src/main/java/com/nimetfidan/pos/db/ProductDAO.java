@@ -48,4 +48,30 @@ public class ProductDAO {
 		}
 	   return productList;
 	}
+	
+	public static Product getItem(String barcode) {
+		String sql = "SELECT * FROM products WHERE barcode = ?";
+		try(Connection conn = DB.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {
+				stmt.setString(1, barcode);
+				
+				// Execute the query and get the result set
+		        ResultSet rs = stmt.executeQuery();
+		        
+		        // If a product is found, map the result to a Product object
+		        if (rs.next()) {
+		            String name = rs.getString("name");
+		            double price = rs.getDouble("price");
+		            int stock = rs.getInt("stock");
+		            String barcodeFromDB = rs.getString("barcode");
+
+		            // Create and return a Product object with the data
+		            return new Product(name, price, stock, barcodeFromDB);
+		        }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return null;
+	}
 }
