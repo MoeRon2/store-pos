@@ -1,5 +1,7 @@
 package com.nimetfidan.pos.model;
 
+import java.util.Objects;
+
 public class Product {
     private String name;
     private double price;
@@ -17,6 +19,19 @@ public class Product {
     @Override
     public String toString() {
         return name + " | " + price + "₺ | Stock: " + stock + " | Barcode: " + barcode;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return barcode.equals(product.barcode); // Assuming barcode is unique for a product
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(barcode); // Hash based on the barcode (since barcode is unique)
     }
     
     public String getName() { return name; }
