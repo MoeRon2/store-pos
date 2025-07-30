@@ -11,7 +11,7 @@ import java.util.List;
 import com.nimetfidan.pos.model.Product;
 
 public class ProductDAO {
-	public static void addProducts(Product product) {
+	public static void addProductsToDB(Product product) {
 		String sql = "INSERT INTO products (name, price, stock, barcode) \r\n"
 				+ "VALUES (?, ?, ?, ?)";
 		try(Connection conn = DB.getConnection();
@@ -28,7 +28,7 @@ public class ProductDAO {
 		}
 	}
 	
-	public static List<Product> getProducts() {
+	public static List<Product> getProductsFromDB() {
 		String sql = "SELECT * FROM products;";
 		List<Product> productList = new ArrayList<>();
 		try (Connection conn = DB.getConnection();
@@ -49,7 +49,7 @@ public class ProductDAO {
 	   return productList;
 	}
 	
-	public static Product getItem(String barcode) {
+	public static Product getItemFromDB(String barcode) {
 		String sql = "SELECT * FROM products WHERE barcode = ?";
 		try(Connection conn = DB.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(sql)) {
