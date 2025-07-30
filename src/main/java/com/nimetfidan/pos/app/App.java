@@ -41,7 +41,7 @@ public class App
 //    cart.printCart();  // Prints empty cart
 //    System.out.println("Total Price: " + cart.getTotalPrice());
     
-      ProductDAO.increaseStock("1");
+      ProductDAO.decreaseStock("1");
       System.out.println(ProductDAO.getItemFromDB("1"));
     }
     

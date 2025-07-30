@@ -92,8 +92,27 @@ public class ProductDAO {
 		updateStock(barcode, productInQuestion.getStock() + 1);
 	}
 	
-	public static void increaseStock(String barcode, int incrementAmountForStock) {
+	public static void increaseStock(String barcode, int incrementAmount) {
 		Product productInQuestion = getItemFromDB(barcode);
-		updateStock(barcode, productInQuestion.getStock() + incrementAmountForStock);
+		updateStock(barcode, productInQuestion.getStock() + incrementAmount);
+	}
+	
+	public static void decreaseStock(String barcode) {
+		Product productInQuestion = getItemFromDB(barcode);
+		int stock = productInQuestion.getStock();
+		if (stock == 0) {
+			System.out.println("Not in stock");
+			return;
+		}
+		updateStock(barcode, productInQuestion.getStock() - 1);
+	}
+	public static void decreaseStock(String barcode, int decrementAmount) {
+		Product productInQuestion = getItemFromDB(barcode);
+		int stock = productInQuestion.getStock();
+		if (stock - decrementAmount < 0) {
+			System.out.println("Not enough products in stock");
+			return;
+		}
+		updateStock(barcode, productInQuestion.getStock() - decrementAmount);
 	}
 }
