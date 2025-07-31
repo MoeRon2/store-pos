@@ -63,12 +63,12 @@ public class POSFrame extends JFrame {
 
 	    JMenuItem addProductItem = new JMenuItem("Add Product");
 	    addProductItem.addActionListener(e -> {
-	        new AddProductFrame(); // Your custom JFrame for the form
+	    	new AddProductDialog(this).setVisible(true); // Your custom JFrame for the form
 	    });
 
 	    JMenuItem viewStockItem = new JMenuItem("View Stock");
 	    viewStockItem.addActionListener(e -> {
-//	        new ViewStockFrame(); // Table display of ProductDAO.getProductsFromDB()
+	        new StockFrame(); // Table display of ProductDAO.getProductsFromDB()
 	    });
 
 	    stockMenu.add(addProductItem);
