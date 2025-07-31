@@ -27,49 +27,19 @@ public class POSFrame extends JFrame {
 
         // Set the layout for the main content panel with GridBagLayout
         mainContentPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbcMainPanel = new GridBagConstraints();
 
         // Cart Panel (Top Left)
-        JPanel cartPanel = new JPanel();
-        cartPanel.setBorder(BorderFactory.createTitledBorder("Cart Panel"));
-        gbcMainPanel.gridx = 0;  // Column 0
-        gbcMainPanel.gridy = 0;  // Row 0
-        gbcMainPanel.gridwidth = 1;  // Span 1 column
-        gbcMainPanel.gridheight = 2;  // Span 2 rows
-        gbcMainPanel.fill = GridBagConstraints.BOTH;  // Allow resizing in both directions
-        gbcMainPanel.weightx = 0.5;  // Make it flexible in the x-direction
-        gbcMainPanel.weighty = 1.0;  // Make it flexible in the y-direction
-        mainContentPanel.add(cartPanel, gbcMainPanel);
+        CartPanel cartPanel = new CartPanel();
+        mainContentPanel.add(cartPanel, cartPanel.getGbcCartPanel());
 
-        // Options Panel (Top Right)
-        JPanel optionsPanel = new JPanel();
-        optionsPanel.setBorder(BorderFactory.createTitledBorder("Options Panel"));
-        GridBagConstraints gbcOptionsPanel = new GridBagConstraints();
-        gbcOptionsPanel.gridx = 0;  // Column 1
-        gbcOptionsPanel.gridy = 3;  // Row 0
-        gbcOptionsPanel.gridwidth = 1;  // Span 1 column
-        gbcOptionsPanel.gridheight = 1;  // Span 1 row
-        gbcOptionsPanel.fill = GridBagConstraints.BOTH;  // Allow resizing
-        gbcOptionsPanel.weightx = 0.5;  // Make it flexible in the x-direction
-        gbcOptionsPanel.weighty = 0.5;  // Make it flexible in the y-direction
-        mainContentPanel.add(optionsPanel, gbcOptionsPanel);
+        // Options Panel (Bottom Left)
+        OptionsPanel optionsPanel = new OptionsPanel(); 
+        mainContentPanel.add(optionsPanel, optionsPanel.getGbcOptionsPanel());
 
         // Input Panel (Right)
-        JPanel inputPanel = new JPanel();
-        GridBagConstraints gbcInputPanel = new GridBagConstraints();
-        inputPanel.setBorder(BorderFactory.createTitledBorder("Input Panel"));
-        gbcInputPanel.gridx = 1;  // Column 1
-        gbcInputPanel.gridy = 0;  // Row 1
-        gbcInputPanel.gridwidth = 1;  // Span 1 column
-        gbcInputPanel.gridheight = 4;  // Span 1 row
-        gbcInputPanel.fill = GridBagConstraints.BOTH;  // Allow resizing
-        gbcInputPanel.weightx = 0.5;  // Make it flexible in the x-direction
-        gbcInputPanel.weighty = 0.5;  // Make it flexible in the y-direction
-        
-        
-        mainContentPanel.add(inputPanel, gbcInputPanel);
+        ControlPanel controlPanel = new ControlPanel();
+        mainContentPanel.add(controlPanel, controlPanel.getGbcControlPanel());
 
-        // Add the main content panel to the frame
         add(mainContentPanel, BorderLayout.CENTER);
 //    	setTitle("Store POS");
 //    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
