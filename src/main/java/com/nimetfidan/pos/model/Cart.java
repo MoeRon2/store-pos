@@ -15,6 +15,10 @@ public class Cart {
         // Check if product is already in the cart
         if (cartItems.containsKey(product)) {
             // Update the quantity
+        	if (product.getStock() < cartItems.get(product) + quantity) {
+        		System.out.println("Not enough stock available for " + product.getName() + ". Available stock: " + product.getStock());
+        		return; // Not enough stock available
+        	}
             cartItems.put(product, cartItems.get(product) + quantity);
         } else {
             // Add new product to the cart

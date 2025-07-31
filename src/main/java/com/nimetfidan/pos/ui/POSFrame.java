@@ -15,6 +15,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -89,8 +90,11 @@ public class POSFrame extends JFrame {
 					Product newProduct = ProductDAO.getItemFromDB(text);
 					System.out.println(newProduct);
 					cart.changeProductQuantity(newProduct, 1); // Add product to cart
-					
 					cartPanel.refreshCartTable(cart); // Refresh the cart table
+					
+				    SwingUtilities.invokeLater(() -> {
+		                controlPanel.barcodeField.setText("");
+		            });
 					// Optionally clear or reset field here:
 					// barcodeField.setText("");
 				}

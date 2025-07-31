@@ -87,5 +87,11 @@ public class ProductDAO {
 	    }
 	}
 	
+	// Might not need this
+//	public static int stockCheck(String barcode, int quantity) {
+//		Product productInQuestion = getItemFromDB(barcode);
+//		return productInQuestion.getStock();
+//	}
+	
 	
 }
