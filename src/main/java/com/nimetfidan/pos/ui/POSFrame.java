@@ -49,13 +49,34 @@ public class POSFrame extends JFrame {
         // Control Panel (Right)
         ControlPanel controlPanel = new ControlPanel();
         
-		Product addProducts = new Product("Item 1", 10.00, 1, "1");
-		Product addProducts2 = new Product("Item 2", 10.00, 1, "2");
+//		Product addProducts = new Product("Item 1", 10.00, 1, "1");
+//		Product addProducts2 = new Product("Item 2", 10.00, 1, "2");
 		Cart cart = new Cart();
 //		cart.changeProductQuantity(addProducts, 2); // Add 2 of Item 1
 //		cart.changeProductQuantity(addProducts2, 3);
         
 	    cartPanel.refreshCartTable(cart);
+	    
+	    
+	    JMenuBar menuBar = new JMenuBar();
+	    JMenu stockMenu = new JMenu("Stock");
+
+	    JMenuItem addProductItem = new JMenuItem("Add Product");
+	    addProductItem.addActionListener(e -> {
+	        new AddProductFrame(); // Your custom JFrame for the form
+	    });
+
+	    JMenuItem viewStockItem = new JMenuItem("View Stock");
+	    viewStockItem.addActionListener(e -> {
+//	        new ViewStockFrame(); // Table display of ProductDAO.getProductsFromDB()
+	    });
+
+	    stockMenu.add(addProductItem);
+	    stockMenu.add(viewStockItem);
+	    menuBar.add(stockMenu);
+
+	    setJMenuBar(menuBar); // inside your POSFrame constructor
+	    
 	    
         controlPanel.barcodePlusButton.addActionListener(e -> {
 			// Increase quantity for selected row in cart
