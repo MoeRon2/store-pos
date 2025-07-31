@@ -26,6 +26,11 @@ import com.nimetfidan.pos.model.Product;
 public class POSFrame extends JFrame {
     private JPanel mainContentPanel;
     
+    private CartPanel cartPanel;
+    private OptionsPanel optionsPanel;
+    private ControlPanel controlPanel;
+    
+    
     public POSFrame() {
     	// Set frame properties
         setTitle("Store POS");
@@ -39,15 +44,15 @@ public class POSFrame extends JFrame {
         mainContentPanel = new JPanel(new GridBagLayout());
 
         // Cart Panel (Top Left)
-        CartPanel cartPanel = new CartPanel();
+        cartPanel = new CartPanel();
         mainContentPanel.add(cartPanel, cartPanel.getGbcCartPanel());
 
         // Options Panel (Bottom Left)
-        OptionsPanel optionsPanel = new OptionsPanel(); 
+        optionsPanel = new OptionsPanel(); 
         mainContentPanel.add(optionsPanel, optionsPanel.getGbcOptionsPanel());
 
         // Control Panel (Right)
-        ControlPanel controlPanel = new ControlPanel();
+        controlPanel = new ControlPanel();
         
 //		Product addProducts = new Product("Item 1", 10.00, 1, "1");
 //		Product addProducts2 = new Product("Item 2", 10.00, 1, "2");
@@ -99,7 +104,7 @@ public class POSFrame extends JFrame {
         
         
         
-        System.out.println(ProductDAO.getProductsFromDB());
+//        System.out.println(ProductDAO.getProductsFromDB());
         
     	// Add ActionListener to JTextField for Enter key
 		controlPanel.barcodeField.addActionListener(new ActionListener() {
@@ -121,10 +126,15 @@ public class POSFrame extends JFrame {
 					
 				    SwingUtilities.invokeLater(() -> {
 		                controlPanel.barcodeField.setText("");
+		                controlPanel.totalAmountLabel.setText(cart.getTotalPrice() + "$"); // Update total label
 		            });
 					// Optionally clear or reset field here:
 					// barcodeField.setText("");
+				    
+				    
 				}
+				
+				
 			}
 
 			@Override
@@ -144,6 +154,7 @@ public class POSFrame extends JFrame {
 		});
         
         
+	
         mainContentPanel.add(controlPanel, controlPanel.getGbcControlPanel());
         
         
@@ -188,5 +199,8 @@ public class POSFrame extends JFrame {
 	    } else {
 	        cartTable.clearSelection();
 	    }
+	    
+	    // finally change the total label 
+	    controlPanel.totalAmountLabel.setText(cart.getTotalPrice() + " $");
     }
 }

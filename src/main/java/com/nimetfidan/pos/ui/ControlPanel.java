@@ -27,6 +27,8 @@ public class ControlPanel extends JPanel {
 	public JTextField barcodeField; // Made public to access in other classes
 	public JButton barcodePlusButton; 
 	public JButton barcodeMinusButton;
+	
+	public JLabel totalAmountLabel;
 
 	ControlPanel() {
 		setLayout(new GridBagLayout());
@@ -95,7 +97,7 @@ public class ControlPanel extends JPanel {
 		totalPanel.setBorder(BorderFactory.createTitledBorder("Total"));
 		totalPanel.setFont(new Font("Arial", Font.BOLD, 24));
 		
-		JLabel totalAmountLabel = new JLabel("$0.00");
+		totalAmountLabel = new JLabel("$0.00");
 		JLabel discountLabel = new JLabel("Discount: $0.00");
 		JLabel taxLabel = new JLabel("Tax: $0.00");
 		totalAmountLabel.setFont(new Font("Arial", Font.BOLD, 28));
