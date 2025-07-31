@@ -21,6 +21,10 @@ public class Product {
         return name + " | " + price + "₺ | Stock: " + stock + " | Barcode: " + barcode;
     }
     
+    public Object[] toObjectArray() {
+		return new Object[] { name, stock, price, price * stock };
+	}
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
