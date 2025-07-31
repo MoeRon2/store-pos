@@ -87,6 +87,21 @@ public class ProductDAO {
 	    }
 	}
 	
+	
+	public static void updateProduct(String barcode, Product updatedProduct) {
+		String sql = "UPDATE products SET name = ?, price = ?, stock = ? WHERE barcode = ?";
+		try (Connection conn = DB.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, updatedProduct.getName());
+			stmt.setDouble(2, updatedProduct.getPrice());
+			stmt.setInt(3, updatedProduct.getStock());
+			stmt.setString(4, updatedProduct.getBarcode());
+			
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	// Might not need this
 //	public static int stockCheck(String barcode, int quantity) {
 //		Product productInQuestion = getItemFromDB(barcode);
