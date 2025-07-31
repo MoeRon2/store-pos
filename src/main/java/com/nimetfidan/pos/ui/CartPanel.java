@@ -1,9 +1,14 @@
 package com.nimetfidan.pos.ui;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class CartPanel extends JPanel{
 	private GridBagConstraints gbcCartPanel = new GridBagConstraints();
@@ -11,6 +16,8 @@ public class CartPanel extends JPanel{
 	CartPanel() {
 	    setBorder(BorderFactory.createTitledBorder("Cart Panel"));
 	    configureGBC();
+	    setLayout(new GridLayout(0, 1));
+	    createCartTable();
 	}
 	
 	private void configureGBC() {
@@ -25,6 +32,33 @@ public class CartPanel extends JPanel{
 	
 	public GridBagConstraints getGbcCartPanel() {
 		return gbcCartPanel;
+	}
+	
+	private void createCartTable() {
+		
+		
+	    // Column names
+	    String[] columnNames = {"Name", "Quantity", "Price per Item", "Total Price"};
+
+	    // Sample data (You can replace this with actual cart data)
+	    Object[][] data = {
+	        {"Item 1", 1, 10.00, 10.00},
+	        {"Item 2", 2, 15.00, 30.00},
+	        {"Item 3", 1, 7.50, 7.50}
+	    };
+
+	    // Create a table with data and column names
+	    JTable cartTable = new JTable(data, columnNames);
+	    
+	    // Optionally, make the table non-editable
+	    cartTable.setDefaultEditor(Object.class, null);
+	    
+	    // Set the table to be scrollable
+	    JScrollPane scrollPane = new JScrollPane(cartTable);
+	    scrollPane.setPreferredSize(new Dimension(400, 200)); // Set your preferred size here
+
+	    // Add the table to your cart panel
+	    add(scrollPane); // You'll need to define gbcCartTable constraints
 	}
 	
 	

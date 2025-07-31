@@ -30,8 +30,17 @@ public class ControlPanel extends JPanel {
 
 		createBarcodeField();
 		createPlusMinusButtons();
+		createTotalLabel();
+		createTotalPanel();
+		createFinishSaleButton();
 		
 		
+		
+	
+	}
+
+	
+	private void createTotalLabel() {
 		GridBagConstraints gbcPreviousTotalLabel = new GridBagConstraints();
 		gbcPreviousTotalLabel.gridx = 0; // Keep in the same column as barcodeField
 		gbcPreviousTotalLabel.gridy = 3; // Next row
@@ -46,25 +55,17 @@ public class ControlPanel extends JPanel {
 		totalLabel.setHorizontalAlignment(SwingConstants.CENTER); // Center the text
 		add(totalLabel, gbcPreviousTotalLabel);
 		
-		
-		createTotalPanel();
-		createFinishSaleButton();
-		
-		
-		
-	
 	}
-
 	
 	private void createFinishSaleButton() {
 		GridBagConstraints gbcFinishSaleButton = new GridBagConstraints();
 		gbcFinishSaleButton.gridx = 0; // Keep in the same column as barcodeField
 		gbcFinishSaleButton.gridy = 5; // Next row
 		gbcFinishSaleButton.weightx = 1; // Fill the width
-		gbcFinishSaleButton.weighty = 1; // No extra height
-		gbcFinishSaleButton.insets = new Insets(0, 0, 0, 0); // Add some padding around the label
+		gbcFinishSaleButton.weighty = 0.5; // No extra height
+		gbcFinishSaleButton.insets = new Insets(0, 0, 20, 0); // Add some padding around the label
 		gbcFinishSaleButton.anchor = GridBagConstraints.CENTER; // Align to the left
-		gbcFinishSaleButton.fill = GridBagConstraints.HORIZONTAL; // Make it fill horizontally
+		gbcFinishSaleButton.fill = GridBagConstraints.BOTH; // Make it fill horizontally
 		
 		JButton finishSaleButton = new JButton("Finish Sale");
 		finishSaleButton.setFont(new Font("Arial", Font.BOLD, 24));
@@ -80,7 +81,7 @@ public class ControlPanel extends JPanel {
 		gbcTotalPanel.gridx = 0; // Keep in the same column as barcodeField
 		gbcTotalPanel.gridy = 4; // Next row
 		gbcTotalPanel.weightx = 1; // Fill the width
-		gbcTotalPanel.weighty = 0; // No extra height
+		gbcTotalPanel.weighty = 0.5; // No extra height
 		gbcTotalPanel.insets = new Insets(0, 0, 0, 0); // Add some padding around the label
 		gbcTotalPanel.anchor = GridBagConstraints.CENTER; // Align to the left
 		gbcTotalPanel.fill = GridBagConstraints.HORIZONTAL; // Make it fill horizontally
