@@ -20,6 +20,7 @@ import com.nimetfidan.pos.model.Product;
 public class CartPanel extends JPanel{
 	private GridBagConstraints gbcCartPanel = new GridBagConstraints();
 	private DefaultTableModel cartModel;
+	public JTable cartTable;
 	
 	CartPanel() {
 	    setBorder(BorderFactory.createTitledBorder("Cart Panel"));
@@ -61,50 +62,24 @@ public class CartPanel extends JPanel{
 		};
 		
 		
-		Product addProducts = new Product("Item 1", 10.00, 1, "1");
-		Product addProducts2 = new Product("Item 1", 10.00, 1, "1");
-		Cart cart = new Cart();
-		cart.addProduct(addProducts, 2); // Add 2 of Item 1
-		cart.addProduct(addProducts2, 3);
+
 		
 		
 		
-		JTable cartTable = new JTable(cartModel);
+		cartTable = new JTable(cartModel);
 		
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 		for (int i = 0; i < cartTable.getColumnCount(); i++) {
 		    cartTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
 		}
-		
+
 		scrollPane.setViewportView(cartTable);
-	   
-		
-		
 	    add(scrollPane);
 	    
-	    refreshCartTable(cart);
-	    // Column names
-//	    String[] columnNames = {"Name", "Quantity", "Price per Item", "Total Price"};
-//
-//	    // Sample data (You can replace this with actual cart data)
-//	    Object[][] data = {
-//	        {"Item 1", 1, 10.00, 10.00},
-//	        {"Item 2", 2, 15.00, 30.00},
-//	        {"Item 3", 1, 7.50, 7.50}
-//	    };
-//
-//	    // Create a table with data and column names
-//	    JTable cartTable = new JTable(data, columnNames);
-//	    
-//	    // Optionally, make the table non-editable
-//	    cartTable.setDefaultEditor(Object.class, null);
-//	    
-//	    // Set the table to be scrollable
-//	    JScrollPane scrollPane = new JScrollPane(cartTable);
-//	    scrollPane.setPreferredSize(new Dimension(400, 200)); // Set your preferred size here
 
-	    // Add the table to your cart panel
+	   
+	    
 	}
 	
 	public void refreshCartTable(Cart cart) {

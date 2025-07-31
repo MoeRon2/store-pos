@@ -14,6 +14,8 @@ public class App
 	public static void main(String[] args) {
         // Swing components should be created on the Event Dispatch Thread (EDT)
         javax.swing.SwingUtilities.invokeLater(() -> {
+        	
+        	
             POSFrame frame = new POSFrame();  // Create the frame
             frame.setVisible(true);           // Make it visible
         });

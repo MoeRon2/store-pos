@@ -19,9 +19,13 @@ import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import com.nimetfidan.pos.model.Product;
+
 public class ControlPanel extends JPanel {
 
 	private GridBagConstraints gbcControlPanel = new GridBagConstraints();
+	public JButton barcodePlusButton; 
+	public JButton barcodeMinusButton;
 
 	ControlPanel() {
 		setLayout(new GridBagLayout());
@@ -125,7 +129,7 @@ public class ControlPanel extends JPanel {
 		gbcBarcodePlusButton.insets = new Insets(40, 5, 0, 0); // Add some padding around the button
 		gbcBarcodePlusButton.anchor = GridBagConstraints.NORTH; // Align to the left
 		gbcBarcodePlusButton.fill = GridBagConstraints.NONE; // No fill,
-		JButton barcodePlusButton = new JButton("+");
+		barcodePlusButton = new JButton("+");
 		barcodePlusButton.setFont(new Font("Arial", Font.PLAIN, 24));
 		barcodePlusButton.setPreferredSize(new Dimension(80, 40));
 		barcodePlusButton.setFocusPainted(false);
@@ -139,7 +143,7 @@ public class ControlPanel extends JPanel {
 		gbcBarcodeMinusButton.insets = new Insets(10, 5, 0, 0); // Add some padding around the button
 		gbcBarcodeMinusButton.anchor = GridBagConstraints.NORTH; // Align to the left
 		gbcBarcodeMinusButton.fill = GridBagConstraints.NONE; // No fill,
-		JButton barcodeMinusButton = new JButton("-");
+		barcodeMinusButton = new JButton("-");
 		barcodeMinusButton.setFont(new Font("Arial", Font.PLAIN, 24));
 		barcodeMinusButton.setPreferredSize(new Dimension(80, 40));
 		barcodeMinusButton.setFocusPainted(false);
@@ -200,6 +204,9 @@ public class ControlPanel extends JPanel {
 		});
 
 	}
+	
+
+
 
 	private void configureGBC() {
 		gbcControlPanel.gridx = 1; // Column 1
