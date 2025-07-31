@@ -36,8 +36,8 @@ public class ControlPanel extends JPanel {
 		gbcPreviousTotalLabel.gridx = 0; // Keep in the same column as barcodeField
 		gbcPreviousTotalLabel.gridy = 3; // Next row
 		gbcPreviousTotalLabel.weightx = 1; // Fill the width
-		gbcPreviousTotalLabel.weighty = 1; // No extra height
-		gbcPreviousTotalLabel.insets = new Insets(0, 0, 5, 0); // Add some padding around the label
+		gbcPreviousTotalLabel.weighty = 3; // No extra height
+		gbcPreviousTotalLabel.insets = new Insets(0, 0, 40, 0); // Add some padding around the label
 		gbcPreviousTotalLabel.anchor = GridBagConstraints.NORTH; // Align to the left
 		gbcPreviousTotalLabel.fill = GridBagConstraints.HORIZONTAL; // Make it fill horizontally
 		
@@ -46,38 +46,75 @@ public class ControlPanel extends JPanel {
 		totalLabel.setHorizontalAlignment(SwingConstants.CENTER); // Center the text
 		add(totalLabel, gbcPreviousTotalLabel);
 		
+		
+		createTotalPanel();
+		createFinishSaleButton();
+		
+		
+		
+	
+	}
+
+	
+	private void createFinishSaleButton() {
+		GridBagConstraints gbcFinishSaleButton = new GridBagConstraints();
+		gbcFinishSaleButton.gridx = 0; // Keep in the same column as barcodeField
+		gbcFinishSaleButton.gridy = 5; // Next row
+		gbcFinishSaleButton.weightx = 1; // Fill the width
+		gbcFinishSaleButton.weighty = 1; // No extra height
+		gbcFinishSaleButton.insets = new Insets(0, 0, 0, 0); // Add some padding around the label
+		gbcFinishSaleButton.anchor = GridBagConstraints.CENTER; // Align to the left
+		gbcFinishSaleButton.fill = GridBagConstraints.HORIZONTAL; // Make it fill horizontally
+		
+		JButton finishSaleButton = new JButton("Finish Sale");
+		finishSaleButton.setFont(new Font("Arial", Font.BOLD, 24));
+		finishSaleButton.setPreferredSize(new Dimension(200, 40));
+		finishSaleButton.setFocusPainted(false);
+		
+		add(finishSaleButton, gbcFinishSaleButton);
+		
+	}
+	
+	private void createTotalPanel() {
 		GridBagConstraints gbcTotalPanel = new GridBagConstraints();
 		gbcTotalPanel.gridx = 0; // Keep in the same column as barcodeField
 		gbcTotalPanel.gridy = 4; // Next row
 		gbcTotalPanel.weightx = 1; // Fill the width
-		gbcTotalPanel.weighty = 1; // No extra height
-		gbcTotalPanel.insets = new Insets(0, 0, 5, 0); // Add some padding around the label
-		gbcTotalPanel.anchor = GridBagConstraints.NORTH; // Align to the left
+		gbcTotalPanel.weighty = 0; // No extra height
+		gbcTotalPanel.insets = new Insets(0, 0, 0, 0); // Add some padding around the label
+		gbcTotalPanel.anchor = GridBagConstraints.CENTER; // Align to the left
 		gbcTotalPanel.fill = GridBagConstraints.HORIZONTAL; // Make it fill horizontally
 		
 		JPanel totalPanel = new JPanel(new GridLayout(0, 1));
 		totalPanel.setBorder(BorderFactory.createTitledBorder("Total"));
 		totalPanel.setFont(new Font("Arial", Font.BOLD, 24));
-		totalLabel.setHorizontalAlignment(SwingConstants.CENTER); // Center the text
 		
 		JLabel totalAmountLabel = new JLabel("$0.00");
 		JLabel discountLabel = new JLabel("Discount: $0.00");
 		JLabel taxLabel = new JLabel("Tax: $0.00");
-		totalAmountLabel.setFont(new Font("Arial", Font.BOLD, 24));
-		discountLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-		taxLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+		totalAmountLabel.setFont(new Font("Arial", Font.BOLD, 28));
+		discountLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+		taxLabel.setFont(new Font("Arial", Font.PLAIN, 24));
 		
 		totalAmountLabel.setHorizontalAlignment(SwingConstants.CENTER); // Center the text
 		discountLabel.setHorizontalAlignment(SwingConstants.CENTER); // Center the text
 		taxLabel.setHorizontalAlignment(SwingConstants.CENTER); // Center the text
+		
+
+//		// Empty label to act as a spacer
+//		JLabel spacerLabel = new JLabel(" ");
+//		spacerLabel.setPreferredSize(new Dimension(200, 20));  // Adjust size as needed
+//
+//		
+		
 		totalPanel.add(totalAmountLabel);
 		totalPanel.add(discountLabel);
 		totalPanel.add(taxLabel);
-		
-		
+		// totalPanel.add(spacerLabel); // This creates space
 		add(totalPanel, gbcTotalPanel);
 	}
-
+	
+	
 	private void createPlusMinusButtons() {
 		GridBagConstraints gbcBarcodePlusButton = new GridBagConstraints();
 		gbcBarcodePlusButton.gridx = 0; // Next column
