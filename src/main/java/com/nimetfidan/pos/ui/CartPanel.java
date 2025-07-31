@@ -4,17 +4,22 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import com.nimetfidan.pos.model.Cart;
 import com.nimetfidan.pos.model.Product;
 
 public class CartPanel extends JPanel{
 	private GridBagConstraints gbcCartPanel = new GridBagConstraints();
+	private DefaultTableModel cartModel;
 	
 	CartPanel() {
 	    setBorder(BorderFactory.createTitledBorder("Cart Panel"));
@@ -41,7 +46,7 @@ public class CartPanel extends JPanel{
 		JScrollPane scrollPane = new JScrollPane();
 		
 		
-		DefaultTableModel cartModel = new DefaultTableModel(new Object[][] {}, new String[] {
+		cartModel = new DefaultTableModel(new Object[][] {}, new String[] {
 				"Name", "Quantity", "Price per Item", "Total Price"
 		    }) {
 		    /**
@@ -56,20 +61,29 @@ public class CartPanel extends JPanel{
 		};
 		
 		
-		Product addProduct = new Product("Item 1", 10.00, 1, "1");
-		cartModel.addRow(addProduct.toObjectArray());
-		cartModel.addRow(addProduct.toObjectArray());
-		cartModel.addRow(addProduct.toObjectArray());
+		Product addProducts = new Product("Item 1", 10.00, 1, "1");
+		Product addProducts2 = new Product("Item 1", 10.00, 1, "1");
+		Cart cart = new Cart();
+		cart.addProduct(addProducts, 2); // Add 2 of Item 1
+		cart.addProduct(addProducts2, 3);
+		
 		
 		
 		JTable cartTable = new JTable(cartModel);
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		for (int i = 0; i < cartTable.getColumnCount(); i++) {
+		    cartTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+		}
+		
 		scrollPane.setViewportView(cartTable);
 	   
 		
 		
 	    add(scrollPane);
 	    
-	    
+	    refreshCartTable(cart);
 	    // Column names
 //	    String[] columnNames = {"Name", "Quantity", "Price per Item", "Total Price"};
 //
@@ -92,6 +106,25 @@ public class CartPanel extends JPanel{
 
 	    // Add the table to your cart panel
 	}
+	
+	public void refreshCartTable(Cart cart) {
+        cartModel.setRowCount(0); // Clear the table first
+
+        for (Map.Entry<Product, Integer> entry : cart.getItems().entrySet()) {
+            Product product = entry.getKey();
+            int quantity = entry.getValue();
+
+            // Create a row using your toObjectArray method, but with updated quantity
+            Object[] row = new Object[] {
+                product.getName(),
+                quantity,
+                String.format("$%.2f", product.getPrice()),
+                String.format("$%.2f", product.getPrice() * quantity)
+            };
+
+            cartModel.addRow(row);
+        }
+    }
 	
 	
 	

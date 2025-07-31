@@ -21,7 +21,17 @@ public class Cart {
             cartItems.put(product, quantity);
         }
     }
+    
+    public void addProduct(Product product) {
+    	addProduct(product, 1);
+    }
 
+    public Map<Product, Integer> getItems() {
+		return cartItems;
+	}
+    
+    
+    
     // Remove product from the cart
     public void removeProduct(Product product) {
         cartItems.remove(product);
