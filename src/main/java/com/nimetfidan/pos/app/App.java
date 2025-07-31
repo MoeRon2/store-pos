@@ -3,7 +3,7 @@ package com.nimetfidan.pos.app;
 import com.nimetfidan.pos.db.ProductDAO;
 import com.nimetfidan.pos.model.Cart;
 import com.nimetfidan.pos.model.Product;
-
+import com.nimetfidan.pos.logic.ProductService;
 /**
  * Hello world!
  *
@@ -41,7 +41,7 @@ public class App
 //    cart.printCart();  // Prints empty cart
 //    System.out.println("Total Price: " + cart.getTotalPrice());
     
-      ProductDAO.decreaseStock("1");
+      ProductService.decreaseStock("1");
       System.out.println(ProductDAO.getItemFromDB("1"));
     }
     
