@@ -11,7 +11,7 @@ public class Cart {
     }
 
     // Add product to the cart
-    public void addProduct(Product product, int quantity) {
+    public void changeProductQuantity(Product product, int quantity) {
         // Check if product is already in the cart
         if (cartItems.containsKey(product)) {
             // Update the quantity
@@ -22,8 +22,8 @@ public class Cart {
         }
     }
     
-    public void addProduct(Product product) {
-    	addProduct(product, 1);
+    public void changeProductQuantity(Product product) {
+    	changeProductQuantity(product, 1);
     }
 
     public Map<Product, Integer> getItems() {

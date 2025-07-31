@@ -24,6 +24,7 @@ import com.nimetfidan.pos.model.Product;
 public class ControlPanel extends JPanel {
 
 	private GridBagConstraints gbcControlPanel = new GridBagConstraints();
+	public JTextField barcodeField; // Made public to access in other classes
 	public JButton barcodePlusButton; 
 	public JButton barcodeMinusButton;
 
@@ -161,7 +162,7 @@ public class ControlPanel extends JPanel {
 		gbcBarcodeField.anchor = GridBagConstraints.NORTH; // Align to the left
 		gbcBarcodeField.fill = GridBagConstraints.HORIZONTAL; // Make it fill horizontally
 
-		JTextField barcodeField = new JTextField(10);
+		barcodeField = new JTextField(10);
 		// Center the text (and cursor)
 		barcodeField.setHorizontalAlignment(SwingConstants.CENTER);
 		barcodeField.setFont(new Font("Arial", Font.PLAIN, 24));
@@ -169,39 +170,7 @@ public class ControlPanel extends JPanel {
 
 		add(barcodeField, gbcBarcodeField);
 
-		// Add ActionListener to JTextField for Enter key
-		barcodeField.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Entered Barcode: " + barcodeField.getText());
-			}
-		});
-
-		barcodeField.getDocument().addDocumentListener(new DocumentListener() {
-			private void autoSubmitIfReady() {
-				String text = barcodeField.getText();
-				if (text.length() == 13) {
-					System.out.println("Auto-submitted barcode: " + text);
-					// Optionally clear or reset field here:
-					// barcodeField.setText("");
-				}
-			}
-
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				autoSubmitIfReady();
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				// Optional: handle backspace if needed
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				// Not used for plain text fields
-			}
-		});
+	
 
 	}
 	

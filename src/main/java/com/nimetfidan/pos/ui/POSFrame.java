@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -13,7 +15,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
+import com.nimetfidan.pos.db.ProductDAO;
 import com.nimetfidan.pos.model.Cart;
 import com.nimetfidan.pos.model.Product;
 
@@ -46,8 +51,8 @@ public class POSFrame extends JFrame {
 		Product addProducts = new Product("Item 1", 10.00, 1, "1");
 		Product addProducts2 = new Product("Item 2", 10.00, 1, "2");
 		Cart cart = new Cart();
-		cart.addProduct(addProducts, 2); // Add 2 of Item 1
-		cart.addProduct(addProducts2, 3);
+//		cart.changeProductQuantity(addProducts, 2); // Add 2 of Item 1
+//		cart.changeProductQuantity(addProducts2, 3);
         
 	    cartPanel.refreshCartTable(cart);
 	    
@@ -63,6 +68,50 @@ public class POSFrame extends JFrame {
 			System.out.println("Clicked Minus Button");
         	changeQuantityForSelectedRow(cartPanel, cart, cartPanel.cartTable, -1);
 		});
+        
+        
+        
+        System.out.println(ProductDAO.getProductsFromDB());
+        
+    	// Add ActionListener to JTextField for Enter key
+		controlPanel.barcodeField.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Entered Barcode: " + controlPanel.barcodeField.getText());
+			}
+		});
+
+		controlPanel.barcodeField.getDocument().addDocumentListener(new DocumentListener() {
+			private void autoSubmitIfReady() {
+				String text = controlPanel.barcodeField.getText();
+				if (text.length() == 1) {
+					System.out.println("Auto-submitted barcode: " + text);
+					Product newProduct = ProductDAO.getItemFromDB(text);
+					System.out.println(newProduct);
+					cart.changeProductQuantity(newProduct, 1); // Add product to cart
+					
+					cartPanel.refreshCartTable(cart); // Refresh the cart table
+					// Optionally clear or reset field here:
+					// barcodeField.setText("");
+				}
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				autoSubmitIfReady();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// Optional: handle backspace if needed
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// Not used for plain text fields
+			}
+		});
+        
         
         mainContentPanel.add(controlPanel, controlPanel.getGbcControlPanel());
         
@@ -94,7 +143,7 @@ public class POSFrame extends JFrame {
 	        		cartPanel.refreshCartTable(cart); // Refresh the UI
 	        		break;
 	        	}
-	            cart.addProduct(product, quantityChange); // Increase quantity by 1
+	            cart.changeProductQuantity(product, quantityChange); // Increase quantity by 1
 	            cartPanel.refreshCartTable(cart);     // Refresh the UI
 	            break;
 	        }
