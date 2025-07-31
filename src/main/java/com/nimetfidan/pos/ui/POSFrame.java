@@ -44,7 +44,7 @@ public class POSFrame extends JFrame {
         ControlPanel controlPanel = new ControlPanel();
         
 		Product addProducts = new Product("Item 1", 10.00, 1, "1");
-		Product addProducts2 = new Product("Item 1", 10.00, 1, "1");
+		Product addProducts2 = new Product("Item 2", 10.00, 1, "2");
 		Cart cart = new Cart();
 		cart.addProduct(addProducts, 2); // Add 2 of Item 1
 		cart.addProduct(addProducts2, 3);
@@ -54,8 +54,16 @@ public class POSFrame extends JFrame {
         controlPanel.barcodePlusButton.addActionListener(e -> {
 			// Increase quantity for selected row in cart
 			System.out.println("Clicked Plus Button");
-        	increaseQuantityForSelectedRow(cartPanel, cart, cartPanel.cartTable);
+        	changeQuantityForSelectedRow(cartPanel, cart, cartPanel.cartTable, 1);
 		});
+        
+        
+        controlPanel.barcodeMinusButton.addActionListener(e -> {
+			// Increase quantity for selected row in cart
+			System.out.println("Clicked Minus Button");
+        	changeQuantityForSelectedRow(cartPanel, cart, cartPanel.cartTable, -1);
+		});
+        
         mainContentPanel.add(controlPanel, controlPanel.getGbcControlPanel());
         
         
@@ -67,7 +75,9 @@ public class POSFrame extends JFrame {
     	
     }
     
-    private void increaseQuantityForSelectedRow(CartPanel cartPanel, Cart cart, JTable cartTable) {
+    private void changeQuantityForSelectedRow(CartPanel cartPanel, Cart cart, JTable cartTable, int quantityChange) {
+    	
+    	// quantityChange is the amount to change the quantity by (+1 or -1 only these two)
 	    int selectedRow = cartTable.getSelectedRow();
 	    if (selectedRow == -1) {
 	        System.out.println("No row selected.");
@@ -79,7 +89,12 @@ public class POSFrame extends JFrame {
 	    // Find the matching Product in the cart
 	    for (Product product : cart.getItems().keySet()) {
 	        if (product.getName().equals(productName)) {
-	            cart.addProduct(product, 1); // Increase quantity by 1
+	        	if (quantityChange < 0 && cart.getQuantity(product) <= 1) {
+	        		cart.removeProduct(product); // Remove product if quantity is 1 or less
+	        		cartPanel.refreshCartTable(cart); // Refresh the UI
+	        		break;
+	        	}
+	            cart.addProduct(product, quantityChange); // Increase quantity by 1
 	            cartPanel.refreshCartTable(cart);     // Refresh the UI
 	            break;
 	        }
