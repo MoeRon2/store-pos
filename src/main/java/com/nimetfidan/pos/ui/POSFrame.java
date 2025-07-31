@@ -23,7 +23,7 @@ public class POSFrame extends JFrame {
         setBounds(0, 0, 1920, 1080); // Set to full screen dimensions
         setMinimumSize(new Dimension(1400, 1000)); // Set minimum size
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
+        getContentPane().setLayout(new BorderLayout());
 
         // Set the layout for the main content panel with GridBagLayout
         mainContentPanel = new JPanel(new GridBagLayout());
@@ -39,21 +39,14 @@ public class POSFrame extends JFrame {
         // Input Panel (Right)
         ControlPanel controlPanel = new ControlPanel();
         mainContentPanel.add(controlPanel, controlPanel.getGbcControlPanel());
+        
+        JPanel panel = new JPanel();
+        controlPanel.add(panel);
 
-        add(mainContentPanel, BorderLayout.CENTER);
-//    	setTitle("Store POS");
-//    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//    	setSize(800, 600);
-//    	setLocationRelativeTo(null); 
-//    	setLayout(new GridBagLayout());
-//    	
-    	// Set frame properties
-//        setTitle("Store POS");
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setBounds(0, 0, 1920, 1080);
-//        setMinimumSize(new Dimension(1400, 1000));
-//        setLocationRelativeTo(null);
-//        setLayout(new BorderLayout());
+        getContentPane().add(mainContentPanel, BorderLayout.CENTER);
+        
+        
+
 //
 //        // Set the layout for the main content panel
 //        mainContentPanel = new JPanel(new GridBagLayout());
