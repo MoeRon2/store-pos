@@ -24,7 +24,12 @@ import com.nimetfidan.pos.model.Cart;
 import com.nimetfidan.pos.model.Product;
 
 public class POSFrame extends JFrame {
-    private JPanel mainContentPanel;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6109562823470358908L;
+
+	private JPanel mainContentPanel;
     
     private CartPanel cartPanel;
     private OptionsPanel optionsPanel;
@@ -65,6 +70,7 @@ public class POSFrame extends JFrame {
 	    
 	    JMenuBar menuBar = new JMenuBar();
 	    JMenu stockMenu = new JMenu("Stock");
+	    JMenu salesMenu = new JMenu("Sales");
 	    JMenu importMenu = new JMenu("Import");
 	    JMenu exportMenu = new JMenu("Export");
 	
@@ -87,6 +93,14 @@ public class POSFrame extends JFrame {
 	    stockMenu.add(viewStockItem);
 	    stockMenu.add(updateProductItem);
 	    
+	    
+	    JMenuItem viewSalesItem = new JMenuItem("View Sales");
+	    viewSalesItem.addActionListener(e -> {
+	    	new SalesFrame(); // Table display of sales
+	    });
+	    
+	    
+	    salesMenu.add(viewSalesItem);
 	    
 	    JMenuItem importFullStock = new JMenuItem("Import Full Stock (Clear & Replace Existing)");
 	    JMenuItem importPartialStock = new JMenuItem("Import Partial Stock (Add New, Update Existing");
@@ -113,6 +127,7 @@ public class POSFrame extends JFrame {
 	    
 	    
 	    menuBar.add(stockMenu);
+	    menuBar.add(salesMenu);
 	    menuBar.add(importMenu);
 	    menuBar.add(exportMenu);
 
