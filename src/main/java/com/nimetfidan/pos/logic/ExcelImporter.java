@@ -24,7 +24,7 @@ public class ExcelImporter {
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) continue; // Skip header row
 
-                String barcode = row.getCell(0).getStringCellValue();
+                String barcode = getCellAsString(row.getCell(0));
                 String name = row.getCell(1).getStringCellValue();
                 double price = row.getCell(2).getNumericCellValue();
                 int stock = (int) row.getCell(3).getNumericCellValue();
@@ -38,6 +38,34 @@ public class ExcelImporter {
 
         return productList;
     }
+
+    
+    private static String getCellAsString(org.apache.poi.ss.usermodel.Cell cell) {
+        if (cell == null) return "";
+
+        switch (cell.getCellType()) {
+            case STRING:
+                return cell.getStringCellValue().trim();
+            case NUMERIC:
+                // Remove .0 if it's a whole number
+                double num = cell.getNumericCellValue();
+                if (num == Math.floor(num)) {
+                    return String.format("%.0f", num); // e.g., 1234567891011
+                } else {
+                    return String.valueOf(num);
+                }
+            case BOOLEAN:
+                return String.valueOf(cell.getBooleanCellValue());
+            case FORMULA:
+                return cell.getCellFormula();
+            case BLANK:
+                return "";
+            default:
+                return "";
+        }
+    }
     
 }
+
+
 
