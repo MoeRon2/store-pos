@@ -2,6 +2,8 @@ package com.nimetfidan.pos.logic;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormat;
@@ -9,6 +11,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import com.nimetfidan.pos.db.ProductDAO;
+import com.nimetfidan.pos.model.Product;
 
 public class ExcelWriter {
 	 public static void createExcelFile(String fileName){
@@ -47,25 +52,17 @@ public class ExcelWriter {
 	        sheet.setDefaultColumnStyle(3, stockStyle); // Column 3 = Stock
 	        
 	        // Sample data
-	        Object[][] productData = {
-	            {"1234567891011", "Apple", 5.50, 20},
-	            {"1002", "Banana", 3.25, 30},
-	            {"1003", "Orange", 4.75, 25}
-	        };
+	        List<Product> products = ProductDAO.getProductsFromDB();
 
-	        for (int i = 0; i < productData.length; i++) {
-	            Row row = sheet.createRow(i + 1);
-	            Object[] product = productData[i];
-	            for (int j = 0; j < product.length; j++) {
-	            	 if (product[j] instanceof String) {
-	                     row.createCell(j).setCellValue((String) product[j]);
-	                 } else if (product[j] instanceof Double) {
-	                     row.createCell(j).setCellValue((Double) product[j]);
-	                 } else if (product[j] instanceof Integer) {
-	                     row.createCell(j).setCellValue((Integer) product[j]);
-	                 }
-	            }
-	        }
+	        int rowIndex = 1;
+	        for (Product product : products) {
+	                     Row row = sheet.createRow(rowIndex++);
+	                     row.createCell(0).setCellValue(product.getBarcode());
+	                     row.createCell(1).setCellValue(product.getName());
+	                     row.createCell(2).setCellValue(product.getPrice());
+	                     row.createCell(3).setCellValue(product.getStock());
+	                 }		
+	        		
 
 	        // Auto-size columns
 	        for (int i = 0; i < 4; i++) {
@@ -73,7 +70,7 @@ public class ExcelWriter {
 	        }
 
 	        // Write the workbook to a file
-	        try (FileOutputStream fos = new FileOutputStream(fileName + ".xlsx")) {
+	        try (FileOutputStream fos = new FileOutputStream(fileName + "_" + LocalDate.now() +  ".xlsx")) {
 	            workbook.write(fos);
 	            System.out.println("✅ Excel file created successfully.");
 	        } catch (IOException e) {
