@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -167,6 +168,14 @@ public class POSFrame extends JFrame {
 			    String text = controlPanel.barcodeField.getText().trim();
 				System.out.println("Entered Barcode: " + text);
 				Product newProduct = ProductDAO.getItemFromDB(text);
+				
+				if (newProduct == null) {
+					String errorMessage = "Product not found for barcode: " + text;
+					JOptionPane.showMessageDialog(POSFrame.this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+
+					return; // Exit if product not found
+				}
+				
 				System.out.println(newProduct);
 				cart.changeProductQuantity(newProduct, 1); // Add product to cart
 				cartPanel.refreshCartTable(cart); // Refresh the cart table
@@ -221,6 +230,13 @@ public class POSFrame extends JFrame {
         controlPanel.finishSaleButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				if (cart.getItems().isEmpty()) {
+					JOptionPane.showMessageDialog(POSFrame.this, "Cart is empty. Please add items before finishing the sale.", "Error", JOptionPane.ERROR_MESSAGE);
+					return; // Exit if cart is empty
+				}
+				
+				
 				
 				String paymentType;
 				if (controlPanel.cashButton.isSelected()) {

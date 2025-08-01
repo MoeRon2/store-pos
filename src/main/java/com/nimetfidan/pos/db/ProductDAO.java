@@ -12,6 +12,10 @@ import com.nimetfidan.pos.model.Product;
 
 public class ProductDAO {
 	public static void addProductsToDB(Product product) {
+		
+
+		
+		
 		String sql = "INSERT INTO products (name, price, stock, barcode) \r\n"
 				+ "VALUES (?, ?, ?, ?)";
 		try(Connection conn = DB.getConnection();
