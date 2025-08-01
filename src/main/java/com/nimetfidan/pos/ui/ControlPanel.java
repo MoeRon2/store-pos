@@ -206,7 +206,11 @@ public class ControlPanel extends JPanel {
 		barcodeField.setFont(new Font("Arial", Font.PLAIN, 24));
 		barcodeField.setPreferredSize(new Dimension(barcodeField.getPreferredSize().width, 40));
 
+		
+
 		add(barcodeField, gbcBarcodeField);
+		
+		
 
 	
 

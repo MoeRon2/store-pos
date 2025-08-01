@@ -263,13 +263,18 @@ public class POSFrame extends JFrame {
 				cartPanel.refreshCartTable(cart); // Refresh the cart table
 				controlPanel.totalAmountLabel.setText(cart.getTotalPrice() + "$"); // Update total label
 				controlPanel.discountLabel.setText("Discount: " + cart.getDiscount() + "$"); // Update discount label
+				controlPanel.barcodeField.requestFocusInWindow();
+
 			}
 		});
 	
         mainContentPanel.add(controlPanel, controlPanel.getGbcControlPanel());
+		
+        SwingUtilities.invokeLater(() -> controlPanel.barcodeField.requestFocusInWindow());
+
         
-        
-      
+
+
 
         getContentPane().add(mainContentPanel, BorderLayout.CENTER);
         
