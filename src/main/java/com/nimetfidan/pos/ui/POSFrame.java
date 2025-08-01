@@ -177,48 +177,47 @@ public class POSFrame extends JFrame {
 	            });
 			}
 		});
+		
+		
+		optionsPanel.applyDiscountButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Handle discount logic here
+				System.out.println("Discount button clicked");
+				String discountText = optionsPanel.discountField.getText().trim();
+				if (!discountText.isEmpty()) {
+					try {
+						double discount = Double.parseDouble(discountText);
+						if (discount < 0) {
+							System.out.println("Discount cannot be negative.");
+							return;
+						}
+						
+						if (optionsPanel.discountCashButton.isSelected()) {
+							cart.applyCashDiscount(discount); // Apply cash discount to cart
+						}
+						else if (optionsPanel.discountPercentageButton.isSelected()) {
+//							cart.applyPercentageDiscount(discount); // Apply percentage discount to cart
+						}
+						else {
+							System.out.println("No discount type selected.");
+							return;
+						}
+						
+					
+				       controlPanel.totalAmountLabel.setText(cart.getTotalPrice() + "$"); // Update total label
+				       controlPanel.discountLabel.setText("Discount: " + discount + "$"); // Update discount label
+					} catch (NumberFormatException ex) {
+					   System.out.println("Invalid discount value: " + discountText);
+				   }
+						
+				
+				
+			}
+			}
+		});
 
-//		controlPanel.barcodeField.getDocument().addDocumentListener(new DocumentListener() {
-//			private void autoSubmitIfReady() {
-//				String text = controlPanel.barcodeField.getText();
-//				if (text.length() == 1) {
-//					System.out.println("Auto-submitted barcode: " + text);
-//					Product newProduct = ProductDAO.getItemFromDB(text);
-//					System.out.println(newProduct);
-//					cart.changeProductQuantity(newProduct, 1); // Add product to cart
-//					cartPanel.refreshCartTable(cart); // Refresh the cart table
-//					
-//				    SwingUtilities.invokeLater(() -> {
-//		                controlPanel.barcodeField.setText("");
-//		                controlPanel.totalAmountLabel.setText(cart.getTotalPrice() + "$"); // Update total label
-//		            });
-//					// Optionally clear or reset field here:
-//					// barcodeField.setText("");
-//				    
-//				    
-//				}
-//				
-//				
-//			}
-//
-//			@Override
-//			public void insertUpdate(DocumentEvent e) {
-//				autoSubmitIfReady();
-//			}
-//
-//			@Override
-//			public void removeUpdate(DocumentEvent e) {
-//				// Optional: handle backspace if needed
-//			}
-//
-//			@Override
-//			public void changedUpdate(DocumentEvent e) {
-//				// Not used for plain text fields
-//			}
-//		});
-        
-		
-		
+       
         controlPanel.finishSaleButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

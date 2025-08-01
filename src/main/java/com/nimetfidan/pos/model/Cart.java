@@ -8,11 +8,19 @@ import com.nimetfidan.pos.db.SaleItemsDAO;
 
 public class Cart {
     private Map<Product, Integer> cartItems;
-
+    private double cashDiscount = 0.0;
+    private double totalPrice;
+    
     public Cart() {
         this.cartItems = new HashMap<>();
     }
 
+    
+    public void applyCashDiscount(double discount) {
+		this.cashDiscount += discount;
+		
+    }
+    
     // Add product to the cart
     public void changeProductQuantity(Product product, int quantity) {
         // Check if product is already in the cart
@@ -59,18 +67,21 @@ public class Cart {
     // Clear the entire cart
     public void clearCart() {
         cartItems.clear();
+        cashDiscount = 0.0; // Reset cash discount
+        
     }
 
     // Get the total price of all products in the cart
     public double getTotalPrice() {
-        double total = 0.0;
+        totalPrice = 0.0;
         for (Map.Entry<Product, Integer> entry : cartItems.entrySet()) {
             Product product = entry.getKey();
             int quantity = entry.getValue();
-            total += product.getPrice() * quantity;
+            totalPrice += product.getPrice() * quantity;
         }
-        return total;
+        return totalPrice - cashDiscount; // Apply cash discount if any
     }
+    
 
     // Get the quantity of a specific product in the cart
     public int getQuantity(Product product) {

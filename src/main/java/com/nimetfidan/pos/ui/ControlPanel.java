@@ -6,26 +6,23 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
-import com.nimetfidan.pos.model.Product;
 
 public class ControlPanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1230412760176507329L;
 	private GridBagConstraints gbcControlPanel = new GridBagConstraints();
 	public JTextField barcodeField; // Made public to access in other classes
 	public JButton barcodePlusButton; 
@@ -33,6 +30,7 @@ public class ControlPanel extends JPanel {
 	public JButton finishSaleButton;
 	public JLabel totalAmountLabel;
 	public JLabel previousTotalLabel;
+	public JLabel discountLabel;
 	public JRadioButton cashButton;
 	public JRadioButton cardButton;
 	ControlPanel() {
@@ -136,7 +134,7 @@ public class ControlPanel extends JPanel {
 		totalPanel.setFont(new Font("Arial", Font.BOLD, 24));
 		
 		totalAmountLabel = new JLabel("$0.00");
-		JLabel discountLabel = new JLabel("Discount: $0.00");
+		discountLabel = new JLabel("Discount: $0.00");
 		JLabel taxLabel = new JLabel("Tax: $0.00");
 		totalAmountLabel.setFont(new Font("Arial", Font.BOLD, 28));
 		discountLabel.setFont(new Font("Arial", Font.PLAIN, 24));

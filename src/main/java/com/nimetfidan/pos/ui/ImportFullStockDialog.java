@@ -1,6 +1,5 @@
 package com.nimetfidan.pos.ui;
 
-import java.awt.Dimension;
 import java.io.File;
 import java.util.List;
 

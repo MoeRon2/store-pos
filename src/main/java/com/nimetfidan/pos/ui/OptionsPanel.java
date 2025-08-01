@@ -11,7 +11,12 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class OptionsPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5657101050055207027L;
 	private GridBagConstraints gbcOptionsPanel = new GridBagConstraints();
+	public JTextField discountField;
 	public JRadioButton discountCashButton;
 	public JRadioButton discountPercentageButton;
 	public JButton applyDiscountButton;
@@ -21,7 +26,7 @@ public class OptionsPanel extends JPanel {
 	    setBorder(BorderFactory.createTitledBorder("Options Panel"));
 	    
 	    JLabel discountLabel = new JLabel("Discount:");
-	    JTextField discountField = new JTextField(10);
+	    discountField = new JTextField(10);
 	    
 		discountCashButton = new JRadioButton("Cash", true); // Default
 		discountPercentageButton = new JRadioButton("Percentage");
@@ -30,7 +35,7 @@ public class OptionsPanel extends JPanel {
 		paymentGroup.add(discountCashButton);
 		paymentGroup.add(discountPercentageButton);
 		
-	    JButton applyDiscountButton = new JButton("Apply Discount");
+	    applyDiscountButton = new JButton("Apply Discount");
 	    
 	    
 	    add(discountLabel);
