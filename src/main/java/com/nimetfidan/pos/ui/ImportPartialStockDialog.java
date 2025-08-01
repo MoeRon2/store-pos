@@ -11,6 +11,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.nimetfidan.pos.db.ProductDAO;
 import com.nimetfidan.pos.logic.ExcelImporter;
+import com.nimetfidan.pos.logic.ExcelWriter;
 import com.nimetfidan.pos.model.Product;
 
 public class ImportPartialStockDialog extends JDialog {
@@ -31,6 +32,14 @@ public class ImportPartialStockDialog extends JDialog {
         int result = fileChooser.showOpenDialog(parent);
 
         if (result == JFileChooser.APPROVE_OPTION) {
+        	
+        	 // Let's first make a backup
+        	String timestamp = java.time.LocalDateTime.now().toString()
+        	    .replace(":", "-").replace("T", "_").substring(0, 16); // yyyy-MM-dd_HH-mm
+        	String backupFileName = "backup_before_import_" + timestamp;
+
+        	ExcelWriter.createExcelFile(backupFileName);
+        	
             File selectedFile = fileChooser.getSelectedFile();
             List<Product> products = ExcelImporter.readProductsFromExcel(selectedFile);
 

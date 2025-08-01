@@ -36,8 +36,33 @@ public class DB {
     	                barcode TEXT UNIQUE NOT NULL
     	            );
     	 		""";
-         try (Statement stmt = conn.createStatement()) {
+         
+    	 String createSalesTable = """
+    		        CREATE TABLE IF NOT EXISTS sales (
+    		            id INTEGER PRIMARY KEY AUTOINCREMENT,
+    		            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    		            total_amount REAL NOT NULL,
+    		            payment_type TEXT
+    		        );
+    		    """;
+
+         String createSaleItemsTable = """
+    		        CREATE TABLE IF NOT EXISTS sale_items (
+    		            id INTEGER PRIMARY KEY AUTOINCREMENT,
+    		            sale_id INTEGER NOT NULL,
+    		            barcode TEXT NOT NULL,
+    		            name TEXT NOT NULL,
+    		            price REAL NOT NULL,
+    		            quantity INTEGER NOT NULL,
+    		            FOREIGN KEY (sale_id) REFERENCES sales(id)
+    		        );
+    		    """;
+    	 
+    	 
+    	 try (Statement stmt = conn.createStatement()) {
              stmt.execute(createProductsTable);
+             stmt.execute(createSalesTable);
+             stmt.execute(createSaleItemsTable);
          } catch (SQLException e) {
  			System.out.println("❌ Failed to connect: " + e.getMessage());
  			throw e;
