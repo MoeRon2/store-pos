@@ -188,6 +188,17 @@ public class POSFrame extends JFrame {
         controlPanel.finishSaleButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				String paymentType;
+				if (controlPanel.cashButton.isSelected()) {
+				    paymentType = "Cash";
+				} else if (controlPanel.cardButton.isSelected()) {
+				    paymentType = "Card";
+				} else {
+				    paymentType = "Unknown"; // fallback
+				}
+				
+				System.out.println("Payment Type: " + paymentType);
 				// Handle finish sale logic here
 				System.out.println("Finish Sale button clicked");
 				controlPanel.previousTotalLabel.setText("Previous Total: " + cart.getTotalPrice() + "$");

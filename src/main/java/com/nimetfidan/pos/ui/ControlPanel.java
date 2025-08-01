@@ -11,9 +11,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
@@ -30,24 +33,59 @@ public class ControlPanel extends JPanel {
 	public JButton finishSaleButton;
 	public JLabel totalAmountLabel;
 	public JLabel previousTotalLabel;
+	public JRadioButton cashButton;
+	public JRadioButton cardButton;
 	ControlPanel() {
 		setLayout(new GridBagLayout());
 		setBorder(BorderFactory.createTitledBorder("Control Panel"));
 		configureGBC();
-
 		createBarcodeField();
 		createPlusMinusButtons();
-		createTotalLabel();
+		createPreviousTotalLabel();
+		createCashOrCreditBoxes();
 		createTotalPanel();
 		createFinishSaleButton();
 		
 		
 		
+		
 	
+	}
+	
+	private void createCashOrCreditBoxes() {
+		GridBagConstraints gbcPaymentOptions = new GridBagConstraints();
+		gbcPaymentOptions.gridx = 0; // Keep in the same column as barcodeField
+		gbcPaymentOptions.gridx = 0; // Keep in the same column as barcodeField
+		gbcPaymentOptions.gridy = 4; // Next row
+		gbcPaymentOptions.weightx = 1; // Fill the width
+		gbcPaymentOptions.weighty = 0; // No extra height
+		gbcPaymentOptions.anchor = GridBagConstraints.NORTH; // Align to the left
+		gbcPaymentOptions.insets = new Insets(0, 55, 50, 55); // Add some padding around the field
+		gbcPaymentOptions.fill = GridBagConstraints.HORIZONTAL; // Make it fill horizontally
+		
+		cashButton = new JRadioButton("Cash", true); // Default
+		cardButton = new JRadioButton("Card");
+
+		
+//		cashButton.setIcon(new ImageIcon("icons/cash.png"));
+//		cardButton.setIcon(new ImageIcon("icons/card.png"));
+//		
+		ButtonGroup paymentGroup = new ButtonGroup();
+		paymentGroup.add(cashButton);
+		paymentGroup.add(cardButton);
+		
+		// Nest them inside a panel (horizontal layout)
+		JPanel paymentPanel = new JPanel(new GridLayout(1, 2, 10, 0)); // 2 columns
+		paymentPanel.setBorder(BorderFactory.createTitledBorder("Payment Method"));
+		paymentPanel.add(cashButton);
+		paymentPanel.add(cardButton);
+
+		add(paymentPanel, gbcPaymentOptions);
+		
 	}
 
 	
-	private void createTotalLabel() {
+	private void createPreviousTotalLabel() {
 		GridBagConstraints gbcPreviousTotalLabel = new GridBagConstraints();
 		gbcPreviousTotalLabel.gridx = 0; // Keep in the same column as barcodeField
 		gbcPreviousTotalLabel.gridy = 3; // Next row
@@ -67,7 +105,7 @@ public class ControlPanel extends JPanel {
 	private void createFinishSaleButton() {
 		GridBagConstraints gbcFinishSaleButton = new GridBagConstraints();
 		gbcFinishSaleButton.gridx = 0; // Keep in the same column as barcodeField
-		gbcFinishSaleButton.gridy = 5; // Next row
+		gbcFinishSaleButton.gridy = 6; // Next row
 		gbcFinishSaleButton.weightx = 1; // Fill the width
 		gbcFinishSaleButton.weighty = 0.5; // No extra height
 		gbcFinishSaleButton.insets = new Insets(0, 0, 20, 0); // Add some padding around the label
@@ -86,7 +124,7 @@ public class ControlPanel extends JPanel {
 	private void createTotalPanel() {
 		GridBagConstraints gbcTotalPanel = new GridBagConstraints();
 		gbcTotalPanel.gridx = 0; // Keep in the same column as barcodeField
-		gbcTotalPanel.gridy = 4; // Next row
+		gbcTotalPanel.gridy = 5; // Next row
 		gbcTotalPanel.weightx = 1; // Fill the width
 		gbcTotalPanel.weighty = 0.5; // No extra height
 		gbcTotalPanel.insets = new Insets(0, 0, 0, 0); // Add some padding around the label
