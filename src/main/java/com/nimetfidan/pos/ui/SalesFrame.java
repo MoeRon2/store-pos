@@ -5,7 +5,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -13,14 +12,14 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import com.nimetfidan.pos.db.ProductDAO;
-import com.nimetfidan.pos.db.SaleItemsDAO;
 import com.nimetfidan.pos.db.SalesDAO;
-import com.nimetfidan.pos.model.Product;
 import com.nimetfidan.pos.model.Sale;
-import com.nimetfidan.pos.model.SaleItem;
 
 public class SalesFrame extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7700592277742106887L;
 	DefaultTableModel salesModel;
 	JTable salesTable;
 	

@@ -27,10 +27,12 @@ public class Cart {
     
     public void applyCashDiscount(double discount) {
 		this.cashDiscount = discount;
+		this.cashDiscountPercentage = 0.0; // Reset percentage discount when cash discount is applied
 		
     }
     
     public void applyDiscountPercentage(double discountPercentage) {
+    	this.cashDiscount = 0.0; // Reset cash discount when percentage discount is applied
     	this.cashDiscountPercentage = discountPercentage;
     }
     
@@ -93,27 +95,37 @@ public class Cart {
             totalPrice += product.getPrice() * quantity;
         }
         
-        discount = 0;// Calculate percentage discount
         
-        if (cashDiscount > 0) {
-			discount = cashDiscount; // Add cash discount
-		}
-        else if (cashDiscountPercentage > 0) {
-        	discount = cashDiscountPercentage / 100.0 * totalPrice; // Add percentage discount
-        }
+        applyDiscount();
         
-        
-        if (totalPrice < discount) {
-			discount = totalPrice; // Ensure discount does not exceed total price
-		}
-        
-        if (totalPrice < 0) {
-            discount = 0;	
-        }
-        
-        return totalPrice - discount; // Apply cash discount if any
+        return totalPrice;// Apply cash discount if any
     }
     
+    
+    public void applyDiscount() {
+    	discount = 0.0;
+    	
+    	
+    	
+		if (cashDiscount > 0) {
+			discount = cashDiscount; // Store the cash discount for reference
+			if (discount > totalPrice) {
+				System.out.println("Error ");; // Ensure discount does not exceed total price
+			}
+			totalPrice -= cashDiscount; // Apply cash discount
+			
+		}
+		
+		if (cashDiscountPercentage > 0) { // Apply percentage discount
+			discount = (totalPrice * (cashDiscountPercentage / 100)); // Store the percentage discount for reference
+			if (discount > totalPrice) {
+				System.out.println("Error ");; // Ensure discount does not exceed total price
+			}
+			System.out.println("Discount: " + discount);
+			totalPrice -= discount;
+		}
+		
+	}
 
     // Get the quantity of a specific product in the cart
     public int getQuantity(Product product) {

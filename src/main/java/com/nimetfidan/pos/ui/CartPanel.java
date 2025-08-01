@@ -1,8 +1,6 @@
 package com.nimetfidan.pos.ui;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.Map;
 
@@ -18,6 +16,10 @@ import com.nimetfidan.pos.model.Cart;
 import com.nimetfidan.pos.model.Product;
 
 public class CartPanel extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3721245288273947555L;
 	private GridBagConstraints gbcCartPanel = new GridBagConstraints();
 	private DefaultTableModel cartModel;
 	public JTable cartTable;

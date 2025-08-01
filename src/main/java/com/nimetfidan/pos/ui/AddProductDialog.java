@@ -17,6 +17,10 @@ import com.nimetfidan.pos.db.ProductDAO;
 import com.nimetfidan.pos.model.Product;
 
 public class AddProductDialog extends JDialog {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4288036225739250056L;
 	JPanel mainContentPanel;
 	public AddProductDialog(JFrame parentFrame) {
         super(parentFrame, "Add Product - Store POS", true); // Modal dialog
