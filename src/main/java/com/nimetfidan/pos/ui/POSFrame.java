@@ -164,48 +164,58 @@ public class POSFrame extends JFrame {
 		controlPanel.barcodeField.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Entered Barcode: " + controlPanel.barcodeField.getText());
+			    String text = controlPanel.barcodeField.getText().trim();
+				System.out.println("Entered Barcode: " + text);
+				Product newProduct = ProductDAO.getItemFromDB(text);
+				System.out.println(newProduct);
+				cart.changeProductQuantity(newProduct, 1); // Add product to cart
+				cartPanel.refreshCartTable(cart); // Refresh the cart table
+				
+			    SwingUtilities.invokeLater(() -> {
+	                controlPanel.barcodeField.setText("");
+	                controlPanel.totalAmountLabel.setText(cart.getTotalPrice() + "$"); // Update total label
+	            });
 			}
 		});
 
-		controlPanel.barcodeField.getDocument().addDocumentListener(new DocumentListener() {
-			private void autoSubmitIfReady() {
-				String text = controlPanel.barcodeField.getText();
-				if (text.length() == 1) {
-					System.out.println("Auto-submitted barcode: " + text);
-					Product newProduct = ProductDAO.getItemFromDB(text);
-					System.out.println(newProduct);
-					cart.changeProductQuantity(newProduct, 1); // Add product to cart
-					cartPanel.refreshCartTable(cart); // Refresh the cart table
-					
-				    SwingUtilities.invokeLater(() -> {
-		                controlPanel.barcodeField.setText("");
-		                controlPanel.totalAmountLabel.setText(cart.getTotalPrice() + "$"); // Update total label
-		            });
-					// Optionally clear or reset field here:
-					// barcodeField.setText("");
-				    
-				    
-				}
-				
-				
-			}
-
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				autoSubmitIfReady();
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				// Optional: handle backspace if needed
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				// Not used for plain text fields
-			}
-		});
+//		controlPanel.barcodeField.getDocument().addDocumentListener(new DocumentListener() {
+//			private void autoSubmitIfReady() {
+//				String text = controlPanel.barcodeField.getText();
+//				if (text.length() == 1) {
+//					System.out.println("Auto-submitted barcode: " + text);
+//					Product newProduct = ProductDAO.getItemFromDB(text);
+//					System.out.println(newProduct);
+//					cart.changeProductQuantity(newProduct, 1); // Add product to cart
+//					cartPanel.refreshCartTable(cart); // Refresh the cart table
+//					
+//				    SwingUtilities.invokeLater(() -> {
+//		                controlPanel.barcodeField.setText("");
+//		                controlPanel.totalAmountLabel.setText(cart.getTotalPrice() + "$"); // Update total label
+//		            });
+//					// Optionally clear or reset field here:
+//					// barcodeField.setText("");
+//				    
+//				    
+//				}
+//				
+//				
+//			}
+//
+//			@Override
+//			public void insertUpdate(DocumentEvent e) {
+//				autoSubmitIfReady();
+//			}
+//
+//			@Override
+//			public void removeUpdate(DocumentEvent e) {
+//				// Optional: handle backspace if needed
+//			}
+//
+//			@Override
+//			public void changedUpdate(DocumentEvent e) {
+//				// Not used for plain text fields
+//			}
+//		});
         
 		
 		

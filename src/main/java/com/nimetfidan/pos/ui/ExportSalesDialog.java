@@ -51,9 +51,6 @@ public class ExportSalesDialog extends JDialog {
 			
 			
 			
-			
-			
-			System.out.println("Export stock functionality is not yet implemented.");
 		}
 
 		
