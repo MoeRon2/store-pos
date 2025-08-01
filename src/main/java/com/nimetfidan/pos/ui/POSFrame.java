@@ -65,7 +65,8 @@ public class POSFrame extends JFrame {
 	    
 	    JMenuBar menuBar = new JMenuBar();
 	    JMenu stockMenu = new JMenu("Stock");
-
+	    JMenu importMenu = new JMenu("Import");
+	
 	    JMenuItem addProductItem = new JMenuItem("Add Product");
 	    addProductItem.addActionListener(e -> {
 	    	new AddProductDialog(this).setVisible(true); // Your custom JFrame for the form
@@ -84,7 +85,26 @@ public class POSFrame extends JFrame {
 	    stockMenu.add(addProductItem);
 	    stockMenu.add(viewStockItem);
 	    stockMenu.add(updateProductItem);
+	    
+	    
+	    JMenuItem importFullStock = new JMenuItem("Import Full Stock (Clear & Replace Existing)");
+	    JMenuItem importPartialStock = new JMenuItem("Import Partial Stock (Add New, Update Existing");
+	    
+//	    importFullStock.addActionListener(e -> {
+//	    	new ImportFullStockDialog(this).setVisible(true); // Your custom JFrame for the form
+//	    });
+//	    
+//	    importFullStock.addActionListener(e -> {
+//	    	new ImportPartialStockDialog(this).setVisible(true); // Your custom JFrame for the form
+//	    });
+//	    
+	    
+	    importMenu.add(importFullStock);
+	    importMenu.add(importPartialStock);
+	    
+	    
 	    menuBar.add(stockMenu);
+	    menuBar.add(importMenu);
 
 	    setJMenuBar(menuBar); // inside your POSFrame constructor
 	    
