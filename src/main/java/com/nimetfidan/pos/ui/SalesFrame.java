@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -13,13 +14,17 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.nimetfidan.pos.db.ProductDAO;
+import com.nimetfidan.pos.db.SaleItemsDAO;
 import com.nimetfidan.pos.db.SalesDAO;
 import com.nimetfidan.pos.model.Product;
 import com.nimetfidan.pos.model.Sale;
+import com.nimetfidan.pos.model.SaleItem;
 
 public class SalesFrame extends JFrame {
 	DefaultTableModel salesModel;
 	JTable salesTable;
+	
+
 	
 	public SalesFrame() {
 		setTitle("View Sales - Store POS");
@@ -84,7 +89,7 @@ public class SalesFrame extends JFrame {
 	                if (row != -1) {
 	                    int saleId = (int) target.getValueAt(row, 0); // assumes ID is in column 0
 	                    System.out.println("Double clicked on sale ID: " + saleId);
-//	                    openSaleItemsDialog(saleId);
+	                    new SaleItemsDialog(SalesFrame.this, saleId);
 	                }
 	            }
 	        }
@@ -96,31 +101,7 @@ public class SalesFrame extends JFrame {
 		System.out.println("SalesFrame initialized.");
 	}
 	
-//	private void openSaleItemsDialog(int saleId) {
-//	    List<SaleItem> items = SalesDAO.getSaleItemsForSaleId(saleId);
-//
-//	    // You can make a custom dialog, but here's a simple version:
-//	    JDialog dialog = new JDialog((Frame) null, "Sale Items for ID " + saleId, true);
-//	    dialog.setLayout(new BorderLayout());
-//
-//	    String[] columnNames = { "Barcode", "Name", "Price", "Quantity" };
-//	    Object[][] data = new Object[items.size()][4];
-//
-//	    for (int i = 0; i < items.size(); i++) {
-//	        SaleItem item = items.get(i);
-//	        data[i][0] = item.getBarcode();
-//	        data[i][1] = item.getName();
-//	        data[i][2] = item.getPrice();
-//	        data[i][3] = item.getQuantity();
-//	    }
-//
-//	    JTable table = new JTable(data, columnNames);
-//	    dialog.add(new JScrollPane(table), BorderLayout.CENTER);
-//
-//	    dialog.setSize(500, 300);
-//	    dialog.setLocationRelativeTo(null);
-//	    dialog.setVisible(true);
-//	}
+
 
 	
 	

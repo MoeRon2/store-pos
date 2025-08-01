@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.nimetfidan.pos.db.ProductDAO;
+import com.nimetfidan.pos.db.SaleItemsDAO;
 import com.nimetfidan.pos.db.SalesDAO;
 
 public class Cart {
@@ -33,14 +34,17 @@ public class Cart {
     	changeProductQuantity(product, 1);
     }
     
-    public void finishSale() {
+    public void finishSale(int saleId) {
     	for (Map.Entry<Product, Integer> entry : cartItems.entrySet()) {
             Product product = entry.getKey();
             int quantity = entry.getValue();
             ProductDAO.updateStock(product.getBarcode(), product.getStock() - quantity);
         }
+    	
+		SaleItemsDAO.addSaleItemsToDB(saleId, this); // Save sale items to database
 		
 	}
+    
 
     public Map<Product, Integer> getItems() {
 		return cartItems;

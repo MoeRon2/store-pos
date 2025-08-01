@@ -20,6 +20,7 @@ public class ExportStockDialog extends JDialog {
 		super(parent, "Export Stock", true);
 		setPreferredSize(new Dimension(400, 300));
 		setLocationRelativeTo(parent);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setLayout(new GridLayout(3, 1, 10, 10));
 		// Here you can implement the logic to export stock to an Excel file
 		// For example, you can use Apache POI to create an Excel file

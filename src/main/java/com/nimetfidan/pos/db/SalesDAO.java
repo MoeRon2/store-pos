@@ -16,7 +16,8 @@ import com.nimetfidan.pos.model.Sale;
 
 
 public class SalesDAO {
-	public static void addSalesToDB(double TotalAmount, String paymentType) {
+	public static int addSalesToDB(double TotalAmount, String paymentType) {
+		int saleId = -1; 
 		String sql = "INSERT INTO sales (total_amount, payment_type) \r\n"
 				+ "VALUES (?, ?)";
 		try(Connection conn = DB.getConnection();
@@ -24,10 +25,22 @@ public class SalesDAO {
 			stmt.setDouble(1, TotalAmount);
 			stmt.setString(2, paymentType);
 			stmt.executeUpdate();
+			
+			ResultSet generatedKeys = stmt.getGeneratedKeys();
+			 if (generatedKeys.next()) {
+			        saleId = generatedKeys.getInt(1); // Get auto-incremented ID
+			    } else {
+			        throw new SQLException("Inserting sale failed, no ID obtained.");
+			    }
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return saleId;
+	
+
 	}
 	public static void clearSalesTable() {
 		String sql = "DELETE FROM sales;";

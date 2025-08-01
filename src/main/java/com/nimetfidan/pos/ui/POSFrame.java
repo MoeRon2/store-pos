@@ -20,6 +20,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import com.nimetfidan.pos.db.ProductDAO;
+import com.nimetfidan.pos.db.SaleItemsDAO;
 import com.nimetfidan.pos.db.SalesDAO;
 import com.nimetfidan.pos.model.Cart;
 import com.nimetfidan.pos.model.Product;
@@ -219,11 +220,11 @@ public class POSFrame extends JFrame {
 				System.out.println("Finish Sale button clicked");
 				
 
-				SalesDAO.addSalesToDB(cart.getTotalPrice(), paymentType); // Save sale to database
-				
+				int saleId = SalesDAO.addSalesToDB(cart.getTotalPrice(), paymentType); // Save sale to database
+			
 				
 				controlPanel.previousTotalLabel.setText("Previous Total: " + cart.getTotalPrice() + "$");
-				cart.finishSale(); // Finalize the sale
+				cart.finishSale(saleId); // Finalize the sale
 				
 				
 				cart.clearCart(); // Clear the cart after finishing the sale
