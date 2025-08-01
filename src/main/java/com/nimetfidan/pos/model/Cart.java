@@ -9,16 +9,29 @@ import com.nimetfidan.pos.db.SaleItemsDAO;
 public class Cart {
     private Map<Product, Integer> cartItems;
     private double cashDiscount = 0.0;
+    private double cashDiscountPercentage = 0.0; // Percentage discount
+    
+    
+    private double discount = 0.0;
     private double totalPrice;
     
     public Cart() {
         this.cartItems = new HashMap<>();
     }
 
+    public double getDiscount() {
+    	return discount;
+    }
+    
+    
     
     public void applyCashDiscount(double discount) {
-		this.cashDiscount += discount;
+		this.cashDiscount = discount;
 		
+    }
+    
+    public void applyDiscountPercentage(double discountPercentage) {
+    	this.cashDiscountPercentage = discountPercentage;
     }
     
     // Add product to the cart
@@ -79,7 +92,26 @@ public class Cart {
             int quantity = entry.getValue();
             totalPrice += product.getPrice() * quantity;
         }
-        return totalPrice - cashDiscount; // Apply cash discount if any
+        
+        discount = 0;// Calculate percentage discount
+        
+        if (cashDiscount > 0) {
+			discount = cashDiscount; // Add cash discount
+		}
+        else if (cashDiscountPercentage > 0) {
+        	discount = cashDiscountPercentage / 100.0 * totalPrice; // Add percentage discount
+        }
+        
+        
+        if (totalPrice < discount) {
+			discount = totalPrice; // Ensure discount does not exceed total price
+		}
+        
+        if (totalPrice < 0) {
+            discount = 0;	
+        }
+        
+        return totalPrice - discount; // Apply cash discount if any
     }
     
 

@@ -82,8 +82,8 @@ public class StockFrame extends JFrame{
             // Create an Object[] from the Product data
             Object[] row = new Object[] {
                 product.getName(),
-                String.format("$%.2f", product.getPrice()),
                 product.getStock(),
+                String.format("$%.2f", product.getPrice()),
                 product.getBarcode()
             };
             

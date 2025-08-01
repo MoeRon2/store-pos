@@ -197,7 +197,7 @@ public class POSFrame extends JFrame {
 							cart.applyCashDiscount(discount); // Apply cash discount to cart
 						}
 						else if (optionsPanel.discountPercentageButton.isSelected()) {
-//							cart.applyPercentageDiscount(discount); // Apply percentage discount to cart
+							cart.applyDiscountPercentage(discount); // Apply percentage discount to cart
 						}
 						else {
 							System.out.println("No discount type selected.");
@@ -206,7 +206,7 @@ public class POSFrame extends JFrame {
 						
 					
 				       controlPanel.totalAmountLabel.setText(cart.getTotalPrice() + "$"); // Update total label
-				       controlPanel.discountLabel.setText("Discount: " + discount + "$"); // Update discount label
+				       controlPanel.discountLabel.setText("Discount: " + cart.getDiscount() + "$"); // Update discount label
 					} catch (NumberFormatException ex) {
 					   System.out.println("Invalid discount value: " + discountText);
 				   }
