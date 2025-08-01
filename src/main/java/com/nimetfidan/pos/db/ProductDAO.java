@@ -28,6 +28,16 @@ public class ProductDAO {
 		}
 	}
 	
+	public static void clearProductsTable() {
+		String sql = "DELETE FROM products;";
+		try (Connection conn = DB.getConnection();
+			 Statement stmt = conn.createStatement()) {
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			System.out.println("❌ Failed to clear products table: " + e.getMessage());
+		}
+	}
+	
 	public static List<Product> getProductsFromDB() {
 		String sql = "SELECT * FROM products;";
 		List<Product> productList = new ArrayList<>();
