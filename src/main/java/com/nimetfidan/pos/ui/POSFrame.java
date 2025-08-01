@@ -92,13 +92,13 @@ public class POSFrame extends JFrame {
 	    JMenuItem importPartialStock = new JMenuItem("Import Partial Stock (Add New, Update Existing");
 	    
 	    importFullStock.addActionListener(e -> {
-	    	new ImportFullStockDialog(this).setVisible(true); // Your custom JFrame for the form
+	    	new ImportFullStockDialog(this); // Your custom JFrame for the form
 	    });
     
-//	    importFullStock.addActionListener(e -> {
-//	    	new ImportPartialStockDialog(this).setVisible(true); // Your custom JFrame for the form
-//	    });
-//	    
+	    importPartialStock.addActionListener(e -> {
+	    	new ImportPartialStockDialog(this); // Your custom JFrame for the form
+	    });
+	    
 	    
 	    importMenu.add(importFullStock);
 	    importMenu.add(importPartialStock);

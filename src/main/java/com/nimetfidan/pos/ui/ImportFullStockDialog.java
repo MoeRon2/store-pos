@@ -7,15 +7,22 @@ import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.nimetfidan.pos.db.ProductDAO;
 import com.nimetfidan.pos.logic.ExcelImporter;
+import com.nimetfidan.pos.logic.ExcelWriter;
 import com.nimetfidan.pos.model.Product;
 
 
 public class ImportFullStockDialog extends JDialog {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6881015576156580523L;
+
 	public ImportFullStockDialog(JFrame parent) {
 //		super(parent, "Import Full Stock", true);
 //		setPreferredSize(new Dimension(400, 300));
@@ -27,10 +34,18 @@ public class ImportFullStockDialog extends JDialog {
         fileChooser.setFileFilter(filter);
         fileChooser.setDialogTitle("Update Full Stock (Replace & Clear)");
         int result = fileChooser.showOpenDialog(parent);
-        
-        
+      
         if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
+
+            // Let's first make a backup
+        	String timestamp = java.time.LocalDateTime.now().toString()
+        	    .replace(":", "-").replace("T", "_").substring(0, 16); // yyyy-MM-dd_HH-mm
+        	String backupFileName = "backup_before_import_" + timestamp;
+
+        	ExcelWriter.createExcelFile(backupFileName);
+        	
+        	
+        	File selectedFile = fileChooser.getSelectedFile();
             List<Product> products = ExcelImporter.readProductsFromExcel(selectedFile);
             
             // Let's clear our table
@@ -43,7 +58,17 @@ public class ImportFullStockDialog extends JDialog {
                 
                 // Optional: call DAO to insert or update here
             }
+            dispose();
+            JOptionPane.showMessageDialog(parent, "Stock updated successfully.");
         }
+        
+        
+        pack();
+        
+        setVisible(true);
+        
+     
 	}
+	
 
 }
