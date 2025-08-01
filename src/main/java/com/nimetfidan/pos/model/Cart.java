@@ -37,19 +37,20 @@ public class Cart {
     }
     
     // Add product to the cart
-    public void changeProductQuantity(Product product, int quantity) {
+    public int changeProductQuantity(Product product, int quantity) {
         // Check if product is already in the cart
         if (cartItems.containsKey(product)) {
             // Update the quantity
         	if (product.getStock() < cartItems.get(product) + quantity) {
         		System.out.println("Not enough stock available for " + product.getName() + ". Available stock: " + product.getStock());
-        		return; // Not enough stock available
+        		return - 1; // Not enough stock available
         	}
             cartItems.put(product, cartItems.get(product) + quantity);
         } else {
             // Add new product to the cart
             cartItems.put(product, quantity);
         }
+        return 0; // Successfully added or updated product quantity
     }
     
     public void changeProductQuantity(Product product) {

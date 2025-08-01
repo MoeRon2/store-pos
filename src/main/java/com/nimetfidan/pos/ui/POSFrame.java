@@ -176,8 +176,20 @@ public class POSFrame extends JFrame {
 					return; // Exit if product not found
 				}
 				
+				if (newProduct.getStock() <= 0) {
+					String errorMessage = "Product is out of stock: " + newProduct.getName();
+					JOptionPane.showMessageDialog(POSFrame.this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+					return; // Exit if product is out of stock
+				}
+				
 				System.out.println(newProduct);
-				cart.changeProductQuantity(newProduct, 1); // Add product to cart
+				int result = cart.changeProductQuantity(newProduct, 1); // Add product to cart
+				
+				if (result == -1) {
+					JOptionPane.showMessageDialog(POSFrame.this, "Not enough stock available for " + newProduct.getName() + ". Available stock: " + newProduct.getStock(), "Error", JOptionPane.ERROR_MESSAGE);
+					return; // Exit if not enough stock
+				}
+				
 				cartPanel.refreshCartTable(cart); // Refresh the cart table
 				
 			    SwingUtilities.invokeLater(() -> {
@@ -296,12 +308,16 @@ public class POSFrame extends JFrame {
 	    // Find the matching Product in the cart
 	    for (Product product : cart.getItems().keySet()) {
 	        if (product.getName().equals(productName)) {
-	        	if (quantityChange < 0 && cart.getQuantity(product) <= 1) {
+	        	if (quantityChange < 0 || cart.getQuantity(product) <= 1) {
 	        		cart.removeProduct(product); // Remove product if quantity is 1 or less
 	        		cartPanel.refreshCartTable(cart); // Refresh the UI
 	        		break;
 	        	}
-	            cart.changeProductQuantity(product, quantityChange); // Increase quantity by 1
+	            int result = cart.changeProductQuantity(product, quantityChange); // Increase quantity by 1
+	            if (result == -1) {
+	            	JOptionPane.showMessageDialog(cartPanel, "Not enough stock available for " + product.getName() + ". Available stock: " + product.getStock(), "Error", JOptionPane.ERROR_MESSAGE);
+	            	return; // Exit if not enough stock
+	            }
 	            cartPanel.refreshCartTable(cart);     // Refresh the UI
 	            break;
 	        }
