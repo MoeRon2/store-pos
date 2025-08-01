@@ -125,7 +125,14 @@ public class POSFrame extends JFrame {
 	    	new ExportStockDialog(this).setVisible(true); // Your custom JFrame for the form
 	    });
 	    
+	    JMenuItem exportSalesItem = new JMenuItem("Export Sales to Excel");
+	    
+	    exportSalesItem.addActionListener(e -> {
+	    	new ExportSalesDialog(this).setVisible(true); // Your custom JFrame for the form
+	    });
+	    
 	    exportMenu.add(exportStockItem);
+	    exportMenu.add(exportSalesItem);
 	    
 	    
 	    menuBar.add(stockMenu);

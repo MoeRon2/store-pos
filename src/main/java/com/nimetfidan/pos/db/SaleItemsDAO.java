@@ -47,18 +47,47 @@ public class SaleItemsDAO {
 
 			while (rs.next()) {
 				// Extracting data from the result set
+				int saleIdFromDB = rs.getInt("sale_id");
 				String barcode = rs.getString("barcode");
 				String name = rs.getString("name");
 				double price = rs.getDouble("price");
 				int quantity = rs.getInt("quantity");
 
 				// Create a SaleItem object and add it to the list
-				SaleItem saleItem = new SaleItem(barcode, name, price, quantity);
+				SaleItem saleItem = new SaleItem(saleIdFromDB, barcode, name, price, quantity);
 				saleItemsList.add(saleItem);
 			}
 
 		} catch (SQLException e) {
 			System.out.println("❌ Failed to get sale items: " + e.getMessage());
+		}
+
+		return saleItemsList;
+	}
+	
+	public static List<SaleItem> getAllSaleItems() {
+		String sql = "SELECT * FROM sale_items ORDER by sale_id DESC;";
+		List<SaleItem> saleItemsList = new ArrayList<>();
+
+		try (Connection conn = DB.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				// Extracting data from the result set
+				int saleId = rs.getInt("sale_id");
+				String barcode = rs.getString("barcode");
+				String name = rs.getString("name");
+				double price = rs.getDouble("price");
+				int quantity = rs.getInt("quantity");
+
+				// Create a SaleItem object and add it to the list
+				SaleItem saleItem = new SaleItem(saleId, barcode, name, price, quantity);
+				saleItemsList.add(saleItem);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("❌ Failed to get all sale items: " + e.getMessage());
 		}
 
 		return saleItemsList;

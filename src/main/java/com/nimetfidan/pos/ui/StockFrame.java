@@ -14,6 +14,10 @@ import com.nimetfidan.pos.db.ProductDAO;
 import com.nimetfidan.pos.model.Product;
 
 public class StockFrame extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2137355969123915171L;
 	DefaultTableModel stockModel;
 	JTable stockTable;
 	

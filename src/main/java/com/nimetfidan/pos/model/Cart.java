@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.nimetfidan.pos.db.ProductDAO;
 import com.nimetfidan.pos.db.SaleItemsDAO;
-import com.nimetfidan.pos.db.SalesDAO;
 
 public class Cart {
     private Map<Product, Integer> cartItems;

@@ -9,11 +9,14 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 
 import com.nimetfidan.pos.logic.ExcelWriter;
 
 public class ExportStockDialog extends JDialog {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8618200475074119926L;
 	JTextField nameField;
 	
 	public ExportStockDialog(JFrame parent) {

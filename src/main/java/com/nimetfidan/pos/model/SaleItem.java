@@ -1,21 +1,26 @@
 package com.nimetfidan.pos.model;
 
-import java.util.List;
 
 public class SaleItem {
+	    private int saleId;
 	    private String barcode;
 	    private String name;
 	    private double price;
 	    private int quantity;
 
 	    // Constructor
-	    public SaleItem(String barcode, String name, double price, int quantity) {
-	        this.barcode = barcode;
+	    public SaleItem(int saleId, String barcode, String name, double price, int quantity) {
+	        this.saleId = saleId;
+	    	this.barcode = barcode;
 	        this.name = name;
 	        this.price = price;
 	        this.quantity = quantity;
 	    }
 
+	    public int getSaleId() {
+	        return saleId;
+	    }
+	    
 	    // Getters and setters
 	    public String getBarcode() {
 	        return barcode;
