@@ -270,12 +270,14 @@ public class POSFrame extends JFrame {
 				controlPanel.previousTotalLabel.setText("Previous Total: " + cart.getTotalPrice() + "$");
 				cart.finishSale(saleId); // Finalize the sale
 				
-				
+				new ReceiptDialog(POSFrame.this, cart,saleId,  paymentType); // Show receipt dialog
+
 				cart.clearCart(); // Clear the cart after finishing the sale
 				cartPanel.refreshCartTable(cart); // Refresh the cart table
 				controlPanel.totalAmountLabel.setText(cart.getTotalPrice() + "$"); // Update total label
 				controlPanel.discountLabel.setText("Discount: " + cart.getDiscount() + "$"); // Update discount label
 				controlPanel.barcodeField.requestFocusInWindow();
+				
 
 			}
 		});
