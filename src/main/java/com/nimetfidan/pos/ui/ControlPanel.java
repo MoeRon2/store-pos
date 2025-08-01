@@ -27,9 +27,9 @@ public class ControlPanel extends JPanel {
 	public JTextField barcodeField; // Made public to access in other classes
 	public JButton barcodePlusButton; 
 	public JButton barcodeMinusButton;
-	
+	public JButton finishSaleButton;
 	public JLabel totalAmountLabel;
-
+	public JLabel previousTotalLabel;
 	ControlPanel() {
 		setLayout(new GridBagLayout());
 		setBorder(BorderFactory.createTitledBorder("Control Panel"));
@@ -57,10 +57,10 @@ public class ControlPanel extends JPanel {
 		gbcPreviousTotalLabel.anchor = GridBagConstraints.NORTH; // Align to the left
 		gbcPreviousTotalLabel.fill = GridBagConstraints.HORIZONTAL; // Make it fill horizontally
 		
-		JLabel totalLabel = new JLabel("Previous Total: $0.00");
-		totalLabel.setFont(new Font("Arial", Font.BOLD, 24));
-		totalLabel.setHorizontalAlignment(SwingConstants.CENTER); // Center the text
-		add(totalLabel, gbcPreviousTotalLabel);
+		previousTotalLabel = new JLabel("Previous Total: $0.00");
+		previousTotalLabel.setFont(new Font("Arial", Font.BOLD, 24));
+		previousTotalLabel.setHorizontalAlignment(SwingConstants.CENTER); // Center the text
+		add(previousTotalLabel, gbcPreviousTotalLabel);
 		
 	}
 	
@@ -74,7 +74,7 @@ public class ControlPanel extends JPanel {
 		gbcFinishSaleButton.anchor = GridBagConstraints.CENTER; // Align to the left
 		gbcFinishSaleButton.fill = GridBagConstraints.BOTH; // Make it fill horizontally
 		
-		JButton finishSaleButton = new JButton("Finish Sale");
+		finishSaleButton = new JButton("Finish Sale");
 		finishSaleButton.setFont(new Font("Arial", Font.BOLD, 24));
 		finishSaleButton.setPreferredSize(new Dimension(200, 40));
 		finishSaleButton.setFocusPainted(false);

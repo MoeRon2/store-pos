@@ -153,7 +153,20 @@ public class POSFrame extends JFrame {
 			}
 		});
         
-        
+		
+		
+        controlPanel.finishSaleButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Handle finish sale logic here
+				System.out.println("Finish Sale button clicked");
+				controlPanel.previousTotalLabel.setText("Previous Total: " + cart.getTotalPrice() + "$");
+				cart.finishSale(); // Finalize the sale
+				cart.clearCart(); // Clear the cart after finishing the sale
+				cartPanel.refreshCartTable(cart); // Refresh the cart table
+				controlPanel.totalAmountLabel.setText(cart.getTotalPrice() + "$"); // Update total label
+			}
+		});
 	
         mainContentPanel.add(controlPanel, controlPanel.getGbcControlPanel());
         

@@ -3,6 +3,8 @@ package com.nimetfidan.pos.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.nimetfidan.pos.db.ProductDAO;
+
 public class Cart {
     private Map<Product, Integer> cartItems;
 
@@ -29,6 +31,15 @@ public class Cart {
     public void changeProductQuantity(Product product) {
     	changeProductQuantity(product, 1);
     }
+    
+    public void finishSale() {
+    	for (Map.Entry<Product, Integer> entry : cartItems.entrySet()) {
+            Product product = entry.getKey();
+            int quantity = entry.getValue();
+            ProductDAO.updateStock(product.getBarcode(), product.getStock() - quantity);
+        }
+		
+	}
 
     public Map<Product, Integer> getItems() {
 		return cartItems;
